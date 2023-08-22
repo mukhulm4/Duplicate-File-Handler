@@ -14,7 +14,7 @@ def get_files_by_size(path, file_format):
 
 def get_hash_duplicates(files_list):
     # Find duplicate files based on their hash values
-    dupe_list = []
+    duplicate_list = []
     hash_dict = {}
     counter = 1
 
@@ -24,22 +24,22 @@ def get_hash_duplicates(files_list):
             hash_dict.setdefault(file_hash, []).append(filepath)
         
         for hash_value, filepaths in hash_dict.items():
-            if len(filepaths) > 1 and hash_value not in dupe_list:
+            if len(filepaths) > 1 and hash_value not in duplicate_list:
                 print(f"Hash: {hash_value}")
                 for filepath in filepaths:
                     print(f"{counter}. {filepath}")
-                    dupe_list.append(hash_value)
+                    duplicate_list.append(hash_value)
                     counter += 1
-    return dupe_list
+    return duplicate_list
 
-def delete_files(file_numbers, dupe_list):
+def delete_files(file_numbers, duplicate_list):
     # Delete selected files and return total freed space
     total_freed_space = 0
 
     for file_num in file_numbers:
         index = int(file_num) - 1
-        if 0 <= index < len(dupe_list):
-            filepath, size = dupe_list[index]
+        if 0 <= index < len(duplicate_list):
+            filepath, size = duplicate_list[index]
             os.remove(filepath)
             total_freed_space += size
     return total_freed_space
@@ -81,18 +81,22 @@ def main():
         print()
 
     print("\nCheck for duplicates?")
-    check_dupes = input()
-    while check_dupes not in ["yes", "no"]:
+    print("yes")
+    print("no")
+    check_duplicates = input()
+    while check_duplicates not in ["yes", "no"]:
         print("Wrong option")
-        check_dupes = input()
+        check_duplicates = input()
     print()
-    if check_dupes == "no":
+    if check_duplicates == "no":
         return
 
     # Find and display duplicate files based on hash values
-    dupe_list = get_hash_duplicates(sorted_files_list)
+    duplicate_list = get_hash_duplicates(sorted_files_list)
 
     print("Delete files?")
+    print("yes")
+    print("no")
     delete_files_option = input()
     while delete_files_option not in ["yes", "no"]:
         print("Wrong option")
@@ -105,12 +109,12 @@ def main():
     print("Enter file numbers to delete:")
     file_numbers = [x for x in input().split() if x.isdigit()]
 
-    while not file_numbers or max(map(int, file_numbers)) > len(dupe_list):
+    while not file_numbers or max(map(int, file_numbers)) > len(duplicate_list):
         print("Wrong format")
         file_numbers = [x for x in input().split() if x.isdigit()]
 
-    total_freed_space = delete_files(file_numbers, dupe_list)
-    print(f"Total freed up space: {total_freed_space} bytes")
+    total_freed_space = delete_files(file_numbers, duplicate_list)
+    print(f"Total space freed: {total_freed_space} bytes")
 
 if __name__ == "__main__":
     main()
