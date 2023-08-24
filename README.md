@@ -19,7 +19,7 @@ python duplicate_finder.py
 ### Step 2: Provide Directory Path
 The program will prompt you to provide the path of the directory you want to search for duplicate files in. Enter the directory path or leave it empty and press Enter if you want to use the current directory.
 
-```python
+```
 duplicate_finder.py D:\YOUR FOLDER HERE
 ```
 
