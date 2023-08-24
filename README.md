@@ -1,10 +1,13 @@
 # Duplicate File Handler
-
 Duplicate File Handler is a useful tool that can free some space on your drive.
-
 ---
 
 ## How to use:
+
+Optional 1st Step: View File Tree
+```
+tree D:\ YOUR FOLDER HERE
+```
 
 ### Step 1: Run the Program
 Save the optimized code into a `.py` file, for example, duplicate_finder.py. Open a terminal or command prompt and navigate to the directory containing the file. Then run the program using the command:
@@ -31,7 +34,6 @@ The program will display the list of files in the chosen sorting order along wit
 
 ### Step 4: Check for Duplicates
 The program will ask if you want to check for duplicate files based on their hash values. Enter `yes` or `no`.
-
 View Duplicate List:
 If you chose to check for duplicates, the program will display a list of duplicate files based on their hash values, along with their hash values. Each duplicate group will be numbered.
 
